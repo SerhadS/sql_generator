@@ -33,7 +33,7 @@ def main():
         "Show all clients with their account balances where the balance is above 5000 dollars and age is above 30",
         "Find transactions from the last week where the amount is greater than 1000 dollars and the customer is from New York",
         "List all businesses in California which do not have any relation to our credit card customers",
-        "List top 2 customers for each day by transaction amount in last 7 days",
+        "List top 2 customers by total credit card transaction amount for each day in last 30 days",
     ]
 
     for i, query in enumerate(example_queries, 1):
