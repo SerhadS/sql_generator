@@ -1,4 +1,4 @@
-# SQL Generation Agent using FalkorDB Knowledge Graph and LLMs (Ollama)
+# SQL Generation Agent using FalkorDB Knowledge Graph and LLMs
 
 This project provides an intelligent SQL generation agent that converts natural language queries into SQL by leveraging a knowledge graph stored in FalkorDB and Large Language Models (LLMs) for semantic understanding. The knowledge graph represents the database schema with tables and columns as nodes, and relationships (HAS_COLUMN, REFERS_TO) as edges.
 
