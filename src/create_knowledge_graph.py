@@ -18,7 +18,6 @@ from falkordb import Edge, FalkorDB, Node
 
 from utils import _get_env_path
 
-
 # Constants
 DEFAULT_SCHEMA_PATH = Path("./data/schema.json")
 DEFAULT_GRAPH_NAME = "schema_graph"
@@ -47,7 +46,9 @@ def load_schema(schema_path: Path) -> List[Dict]:
         return json.load(f)
 
 
-def create_falkor_connection(host: str = DEFAULT_FALKOR_HOST, port: int = DEFAULT_FALKOR_PORT) -> FalkorDB:
+def create_falkor_connection(
+    host: str = DEFAULT_FALKOR_HOST, port: int = DEFAULT_FALKOR_PORT
+) -> FalkorDB:
     """
     Create and return a FalkorDB connection.
 
@@ -61,7 +62,9 @@ def create_falkor_connection(host: str = DEFAULT_FALKOR_HOST, port: int = DEFAUL
     return FalkorDB(host=host, port=port)
 
 
-def initialize_graph(db: FalkorDB, graph_name: str = DEFAULT_GRAPH_NAME) -> FalkorDB.Graph:
+def initialize_graph(
+    db: FalkorDB, graph_name: str = DEFAULT_GRAPH_NAME
+) -> FalkorDB.Graph:
     """
     Initialize or reset the knowledge graph.
 
@@ -87,7 +90,9 @@ def initialize_graph(db: FalkorDB, graph_name: str = DEFAULT_GRAPH_NAME) -> Falk
     return graph
 
 
-def create_table_node(graph: FalkorDB.Graph, table_name: str, description: str, node_id: int) -> Node:
+def create_table_node(
+    graph: FalkorDB.Graph, table_name: str, description: str, node_id: int
+) -> Node:
     """
     Create a Table node in the knowledge graph.
 
@@ -117,9 +122,13 @@ def create_table_node(graph: FalkorDB.Graph, table_name: str, description: str, 
 
 
 def create_column_node(
-    graph: FalkorDB.Graph, column_name: str, column_type: str, description: str, node_id: int
+    graph: FalkorDB.Graph,
+    column_name: str,
+    column_type: str,
+    description: str,
+    node_id: int,
 ) -> Node:
-    """                                                                                                                                                      
+    """
     Create a Column node in the knowledge graph.
 
     Args:
@@ -165,10 +174,14 @@ def create_has_column_relationship(
         CREATE (t)-[:HAS_COLUMN]->(c)
     """
     graph.query(cypher_query)
-    print(f"Created HAS_COLUMN relationship: {table_node.properties['name']} -> {column_node.properties['name']}")
+    print(
+        f"Created HAS_COLUMN relationship: {table_node.properties['name']} -> {column_node.properties['name']}"
+    )
 
 
-def find_column_node_id(table_name: str, column_name: str, schemas: List[Dict]) -> Optional[int]:
+def find_column_node_id(
+    table_name: str, column_name: str, schemas: List[Dict]
+) -> Optional[int]:
     """
     Find the node_id of a column in the schemas.
 
@@ -252,7 +265,9 @@ def create_table_and_column_nodes(
     return nodes, node_id
 
 
-def create_foreign_key_relationships(graph: FalkorDB.Graph, schemas: List[Dict]) -> None:
+def create_foreign_key_relationships(
+    graph: FalkorDB.Graph, schemas: List[Dict]
+) -> None:
     """
     Create REFERS_TO relationships based on foreign key constraints.
 
@@ -291,10 +306,14 @@ def create_foreign_key_relationships(graph: FalkorDB.Graph, schemas: List[Dict])
                 referred_col = referred_columns[i]
 
                 # Find source column node_id
-                src_node_id = find_column_node_id(schema["table"], constrained_col, schemas)
+                src_node_id = find_column_node_id(
+                    schema["table"], constrained_col, schemas
+                )
 
                 # Find target column node_id
-                target_node_id = find_column_node_id(referred_table, referred_col, schemas)
+                target_node_id = find_column_node_id(
+                    referred_table, referred_col, schemas
+                )
 
                 if src_node_id is not None and target_node_id is not None:
                     create_refers_to_relationship(graph, src_node_id, target_node_id)
