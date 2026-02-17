@@ -1,5 +1,6 @@
 from __future__ import annotations
 import sys
+
 sys.path.insert(0, "./src")
 
 import json
@@ -138,7 +139,6 @@ def extract_table_schema(
         relationships=relationships,
         description=table_description,
     )
-
 
 
 def create_sqlite_engine(db_path: str = DEFAULT_DB_PATH) -> Engine:
