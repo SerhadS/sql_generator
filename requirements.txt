@@ -1,0 +1,7 @@
+python==3.13.*
+faker==37.3.*
+falkordb>=1.0.0
+sqlalchemy>=2.0.0
+pandas>=2.0.0
+python-dotenv>=1.0.0
+black==26.1.0
